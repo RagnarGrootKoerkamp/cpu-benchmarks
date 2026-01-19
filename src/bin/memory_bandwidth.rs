@@ -5,11 +5,11 @@ use rand::{thread_rng, Rng};
 use rayon::prelude::*;
 
 const CACHELINE: usize = 64;
-const ITS: usize = 20;
+const ITS: usize = 2;
 
 fn main() {
-    // Allocate 4GB bytes of random data.
-    let n: usize = 4_000_000_000;
+    // Allocate 16GB bytes of random data.
+    let n: usize = 16_000_000_000;
     let data: Vec<u8> = (0..n)
         .into_par_iter()
         .map_init(thread_rng, |rng, _| rng.gen())
@@ -18,8 +18,8 @@ fn main() {
     // test_full(&data);
     // test_cacheline(&data);
     // test_stride(&data);
-    let strides = [103, 29, 53, 13, 193, 149];
-    for threads in [1, 2, 3, 4, 5, 6] {
+    let strides = (0..200).map(|_| thread_rng().gen_range(1..256)|1).collect::<Vec<usize>>();
+    for threads in [1, 4, 8, 16, 32, 48, 96, 192] {
         eprint!("Threads: {}", threads);
         let start = Instant::now();
         rayon::scope(|scope| {
