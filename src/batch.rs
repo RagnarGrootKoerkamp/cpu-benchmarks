@@ -86,6 +86,7 @@ pub fn batch_exp() {
     run_experiment(batch::<32>, results);
 
     run_experiment(batch_prefetch::<16>, results);
+    run_experiment(batch_prefetch::<32>, results);
 
     run_experiment(batch_work3::<16>, results);
     run_experiment(batch_work6::<16>, results);
