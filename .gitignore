@@ -4,3 +4,4 @@
 /results-release/
 /instruction_tables.pdf
 /perf.data*
+/.mypy_cache/
