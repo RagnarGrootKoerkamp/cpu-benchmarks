@@ -50,7 +50,7 @@ fn main() {
             eprintln!("\nThreads {}", ARGS.threads);
             for b in sizes() {
                 mt_throughput::mt_throughput(b, ARGS.threads);
-                mt_throughput::mt_throughput_pairs(b, ARGS.threads);
+                // mt_throughput::mt_throughput_pairs(b, ARGS.threads);
             }
         }
     }

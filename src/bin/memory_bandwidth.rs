@@ -18,15 +18,20 @@ fn main() {
     // test_full(&data);
     // test_cacheline(&data);
     // test_stride(&data);
-    let strides = (0..200).map(|_| thread_rng().gen_range(1..256)|1).collect::<Vec<usize>>();
-    for threads in [1, 4, 8, 16, 32, 48, 96, 192] {
+    let strides = (0..200)
+        .map(|_| thread_rng().gen_range(1..256) | 1)
+        .collect::<Vec<usize>>();
+    for threads in [1, 4, 6, 12] {
+        let chunk_size = n / threads;
+        let data = data.chunks(chunk_size).collect::<Vec<_>>();
+
         eprint!("Threads: {}", threads);
         let start = Instant::now();
         rayon::scope(|scope| {
-            for &stride in strides.iter().take(threads) {
+            for (data, stride) in data.iter().zip(&strides) {
                 // let data = data.clone();
-                let data = &data;
-                scope.spawn(move |_| test_stride::<true>(data, stride));
+                scope.spawn(move |_| test_stride::<true>(data, *stride));
+                // scope.spawn(move |_| test_full(data));
             }
         });
         let e = start.elapsed();
@@ -39,7 +44,7 @@ fn main() {
 }
 
 #[inline(never)]
-fn test_full(data: &Vec<u8>) {
+fn test_full(data: &[u8]) {
     let n = data.len();
     let mut sum1 = 0;
     for _ in 0..ITS {
@@ -65,7 +70,7 @@ fn test_cacheline(data: &Vec<u8>) {
 }
 
 #[inline(never)]
-fn test_stride<const PREFETCH: bool>(data: &Vec<u8>, s: usize) {
+fn test_stride<const PREFETCH: bool>(data: &[u8], s: usize) {
     let n = data.len();
     let mut sum2 = 0;
     let cs = s * CACHELINE;

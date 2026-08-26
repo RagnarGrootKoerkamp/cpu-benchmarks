@@ -107,12 +107,12 @@ pub fn raw_pointer_chasing_padded_aligned(size: usize) -> Result {
 pub fn latency_exp() {
     let results = &mut vec![];
 
-    run_experiment(pointer_chasing_checked, results);
-    run_experiment(pointer_chasing, results);
-    run_experiment(pointer_chasing_padded, results);
-    run_experiment(raw_pointer_chasing, results);
-    run_experiment(raw_pointer_chasing_padded, results);
-    run_experiment(pointer_chasing_padded_aligned, results);
+    // run_experiment(pointer_chasing_checked, results);
+    // run_experiment(pointer_chasing, results);
+    // run_experiment(pointer_chasing_padded, results);
+    // run_experiment(raw_pointer_chasing, results);
+    // run_experiment(raw_pointer_chasing_padded, results);
+    // run_experiment(pointer_chasing_padded_aligned, results);
     run_experiment(raw_pointer_chasing_padded_aligned, results);
 
     save_results(results, "latency");

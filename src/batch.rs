@@ -74,14 +74,14 @@ pub fn batch_prefetch_work12<const B: usize>(size: usize) -> Result {
 
 pub fn batch_exp() {
     let results = &mut vec![];
-    run_experiment(batch::<1>, results);
-    run_experiment(batch::<2>, results);
-    run_experiment(batch::<4>, results);
-    run_experiment(batch::<8>, results);
-    run_experiment(batch::<10>, results);
-    run_experiment(batch::<11>, results);
-    run_experiment(batch::<12>, results);
-    run_experiment(batch::<13>, results);
+    // run_experiment(batch::<1>, results);
+    // run_experiment(batch::<2>, results);
+    // run_experiment(batch::<4>, results);
+    // run_experiment(batch::<8>, results);
+    // run_experiment(batch::<10>, results);
+    // run_experiment(batch::<11>, results);
+    // run_experiment(batch::<12>, results);
+    // run_experiment(batch::<13>, results);
     run_experiment(batch::<16>, results);
     run_experiment(batch::<32>, results);
 
